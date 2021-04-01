@@ -62,15 +62,16 @@
                         <div class="row">
                         <div class="col-md-12" style="text-align: left;">
                             <label for="lblAluno" class="label">Aluno:</label>
-                            <input name="nome" type="text" class="input-professor" />                
+                            <input required name="nome" type="text" class="input-professor" />                
                         </div>
                         <div class="col-md-12" style="text-align: left;"> 
                             <label for="lblTemaTG" class="label">Tema TG:</label>
-                            <input type="text" class="input-professor"  />                 
+                            <input required type="text" class="input-professor"  />                 
                         </div>
                         <div class="col-md-12" style="text-align: left;">
                             <label for="lblProfessor1" class="label">Orientador:</label>
-                            <select  name="professor1" id="professor1" class="input-professor">
+                            <select name="professor1" id="professor1" class="input-professor">
+                                <option value="Selecione">[Selecione]</option>
                                 <option value="Adriana">Adriana Jacinto</option>
                                 <option value="Sakaue">Eduardo Sakaue</option>
                                 <option value="Mineda">Emanuel Mineda</option>
@@ -80,7 +81,8 @@
                         </div>
                             <div class="col-md-6" style="text-align: left;">
                                 <label for="lblProfessor1" class="label">Professor 1:</label>
-                                <select  name="professor1" id="professor1" class="input-professor">
+                                <select name="professor1" id="professor1" class="input-professor">
+                                    <option value="Selecione">[Selecione]</option>
                                     <option value="Adriana">Adriana Jacinto</option>
                                     <option value="Sakaue">Eduardo Sakaue</option>
                                     <option value="Mineda">Emanuel Mineda</option>
@@ -90,7 +92,8 @@
                             </div>    
                             <div class="col-md-6" style="text-align: left;">
                                 <label for="lblProfessor2" class="label">Professor 2:</label>
-                                <select  name="professor2" id="professor2" class="input-professor">
+                                <select name="professor2" id="professor2" class="input-professor">
+                                    <option value="Selecione">[Selecione]</option>
                                     <option value="Adriana">Adriana Jacinto</option>
                                     <option value="Sakaue">Eduardo Sakaue</option>
                                     <option value="Mineda">Emanuel Mineda</option>
@@ -100,17 +103,17 @@
                             </div>
                             <div class="col-md-6" style="text-align: left;">
                                 <label for="lblData" class="label">Data:</label>
-                                <input  type="date" name="data" class="input-professor" />
+                                <input  required type="date" name="data" class="input-professor" />
                             </div>
                             <div class="col-md-6" style="text-align: left;">
                                 <label for="lblHorario"  class="label">Horario:</label>
-                                <input  name="horario" type="time" class="input-professor" />  
+                                <input  required name="horario" type="time" class="input-professor" />  
                             </div>
                         </div>
                        
                         <div class="col-md-12" style="text-align: left;">
                             <label for="lblEmail" class="label">E-mail:</label>
-                            <input  type="email" class="input-professor" />               
+                            <input  required type="email" class="input-professor" />               
                         </div>
                         <div class="col-md-12" style="text-align: left;">
                             <button class="btnAgendar">Agendar</button>
