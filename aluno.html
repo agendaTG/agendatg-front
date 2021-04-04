@@ -52,9 +52,9 @@
         $(document).ready(function() {
             $.get('http://127.0.0.1:9000/user/getall/professor', function(professores) {
                 professores.forEach(professor => {
-                    $('#professor01').append('<option value='+professor.nome+'>'+professor.nome+'</option>');
-                    $('#professor02').append('<option value='+professor.nome+'>'+professor.nome+'</option>');
-                    $('#coordenador').append('<option value='+professor.nome+'>'+professor.nome+'</option>');
+                    $('#professor01').append('<option value='+professor.id+'>'+professor.nome+'</option>');
+                    $('#professor02').append('<option value='+professor.id+'>'+professor.nome+'</option>');
+                    $('#orientador').append('<option value='+professor.id+'>'+professor.nome+'</option>');
                 });
             });
         });
@@ -66,17 +66,17 @@
     <div class="container" style="margin: 10px auto;">
         <div class="row">
             <div class="col-md-6">
-                <form id="content-opcoes" action="/agendamento/create">
+                <form id="content-opcoes" action="http://localhost:9000/agendamento/create" method="post">
                     <div class="professor">
                         <h2 style="color: white;">Aluno</h2>
                         <div class="row">
                         <div class="col-md-12" style="text-align: left;"> 
                             <label for="lbltemaTG" class="label">Tema TG:</label>
-                            <input required type="text" class="input-professor"  />                 
+                            <input required type="text" name="temaTG" class="input-professor"  />                 
                         </div>
                         <div class="col-md-12" style="text-align: left;">
-                            <label for="lblcoordenador" class="label">Orientador:</label>
-                            <select name="coordenador" id="coordenador" class="input-professor">
+                            <label for="lblorientador" class="label">Orientador:</label>
+                            <select name="orientador" id="orientador" class="input-professor">
                             </select>                         
                         </div>
                             <div class="col-md-6" style="text-align: left;">
