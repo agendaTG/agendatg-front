@@ -16,37 +16,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-          var calendarEl = document.getElementById('calendar');
-          var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'listMonth',
-            locale: 'pt-br',
-            height: '391px',
-            header: {
-                left: 'title',
-                center: '',
-                right: 'prev,next'
-             },
-            events:[
-                {
-                title  : 'event1',
-                start  : '2021-03-17'
-                },
-                {
-                title  : 'event2',
-                start  : '2021-03-05T20:30:00',
-                end: '2021-03-05T21:15:00'
-                },
-                {
-                title  : 'event3',
-                start  : '2021-03-05T12:30:00',
-                allDay : false // will make the time show
-                }
-            ]
-          });
-          calendar.render();
-        });
+            function setCalendar(eventos){
+                    var calendarEl = document.getElementById('calendar');
+                    
+                    console.log(eventos)
 
-      </script>
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'listMonth',
+                        locale: 'pt-br',
+                        height: '450px',
+                        header: {
+                            left: 'title',
+                            center: '',
+                            right: 'prev,next'
+                        },
+                        events:eventos
+                    });
+                    
+                    calendar.render();
+                            
+            }
+
+            $.get('http://127.0.0.1:9000/agendamento/list_aceitos', function(list_agendamentos_aceitos) {
+                setCalendar(list_agendamentos_aceitos);
+            });
+        });
+        
+    </script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;700&display=swap" rel="stylesheet">
     <title>DevSoft</title>
@@ -56,9 +52,9 @@
         $(document).ready(function() {
             $.get('http://127.0.0.1:9000/user/getall/professor', function(professores) {
                 professores.forEach(professor => {
-                    $('#professor1').append('<option value='+professor.nome+'>'+professor.nome+'</option>');
-                    $('#professor2').append('<option value='+professor.nome+'>'+professor.nome+'</option>');
-                    $('#orientador').append('<option value='+professor.nome+'>'+professor.nome+'</option>');
+                    $('#professor01').append('<option value='+professor.nome+'>'+professor.nome+'</option>');
+                    $('#professor02').append('<option value='+professor.nome+'>'+professor.nome+'</option>');
+                    $('#coordenador').append('<option value='+professor.nome+'>'+professor.nome+'</option>');
                 });
             });
         });
@@ -70,49 +66,41 @@
     <div class="container" style="margin: 10px auto;">
         <div class="row">
             <div class="col-md-6">
-                <form id="content-opcoes" action="/test">
+                <form id="content-opcoes" action="/agendamento/create">
                     <div class="professor">
                         <h2 style="color: white;">Aluno</h2>
                         <div class="row">
-                        <div class="col-md-12" style="text-align: left;">
-                            <label for="lblAluno" class="label">Aluno:</label>
-                            <input name="nome" type="text" class="input-professor" disabled/>           
-                        </div>
                         <div class="col-md-12" style="text-align: left;"> 
-                            <label for="lblTemaTG" class="label">Tema TG:</label>
+                            <label for="lbltemaTG" class="label">Tema TG:</label>
                             <input required type="text" class="input-professor"  />                 
                         </div>
                         <div class="col-md-12" style="text-align: left;">
-                            <label for="lblOrientador" class="label">Orientador:</label>
-                            <select name="orientador" id="orientador" class="input-professor">
+                            <label for="lblcoordenador" class="label">Orientador:</label>
+                            <select name="coordenador" id="coordenador" class="input-professor">
                             </select>                         
                         </div>
                             <div class="col-md-6" style="text-align: left;">
-                                <label for="lblProfessor1" class="label">Professor 1:</label>
-                                <select name="professor1" id="professor1" class="input-professor">
+                                <label for="lblprofessor01" class="label">Professor 1:</label>
+                                <select name="professor01" id="professor01" class="input-professor">
                                 </select>                         
                             </div>    
                             <div class="col-md-6" style="text-align: left;">
-                                <label for="lblProfessor2" class="label">Professor 2:</label>
-                                <select name="professor2" id="professor2" class="input-professor">
+                                <label for="lblProfessor02" class="label">Professor 2:</label>
+                                <select name="professor02" id="professor02" class="input-professor">
                                 </select>                 
                             </div>
                             <div class="col-md-6" style="text-align: left;">
-                                <label for="lblData" class="label">Data:</label>
-                                <input  required type="date" name="data" class="input-professor" />
+                                <label for="lblDatahora" class="label">Data:</label>
+                                <input  required type="datetime-local" name="datahora" class="input-professor" />
                             </div>
                             <div class="col-md-6" style="text-align: left;">
-                                <label for="lblHorario"  class="label">Horario:</label>
-                                <input  required name="horario" type="time" class="input-professor" />  
+                                <label for="lblEmail" class="label">E-mail:</label>
+                                <input  required type="email" name="email" class="input-professor" />               
                             </div>
                         </div>
-                       
+                                               
                         <div class="col-md-12" style="text-align: left;">
-                            <label for="lblEmail" class="label">E-mail:</label>
-                            <input  required type="email" class="input-professor" />               
-                        </div>
-                        <div class="col-md-12" style="text-align: left;">
-                            <button class="btnAgendar">Agendar</button>
+                            <button class="btnAgendar" type="submit">Agendar</button>
                         </div>      
                     </div>
             
