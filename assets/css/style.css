@@ -80,11 +80,89 @@ body{
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
 }
-.content{
+.btnStatus{
     padding: 10px;
-    text-align: justify;
-    width: 90%;
-    margin: 0 auto;
+    background: transparent;
+    border: solid 2px #777;
+    color: #777;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+    margin: 10px auto;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    text-transform: uppercase;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+}
+
+.btnStatus:hover{
+    background:  #777;
+    color: white;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+}
+.wrapper-progressBar {
+    width: 100%
+}
+
+.progressBar {
+}
+
+.progressBar li {
+    list-style-type: none;
+    float: left;
+    width: 33%;
+    position: relative;
+    color: white;
+    text-align: center;
+}
+
+.progressBar li:before {
+    content: " ";
+    line-height: 30px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px;
+    background-color: white
+}
+
+.progressBar li:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: #ddd;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+}
+
+.progressBar li:first-child:after {
+    content: none;
+}
+
+.progressBar li.active {
+    color: white;
+}
+
+.progressBar li.active:before {
+    border-color: black;
+    background-color: black
+}
+
+.progressBar .active:after {
+    background-color: black;
 }
 .btnAgendar{
     width: 100%;
@@ -111,6 +189,21 @@ body{
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
+}
+.btnEditar{
+    padding: 10px;
+    background-color: goldenrod;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    width: 49.5%;
+    margin: 10px auto;
+    border:none;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all ease-in 0.2;
 }
 .btnAceitar{
     padding: 10px;
