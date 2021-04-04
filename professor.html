@@ -37,8 +37,8 @@
                             
             }
 
-            $.get('http://127.0.0.1:9000/agendamento/list', function(agendamentos) {
-                setCalendar(agendamentos);
+            $.get('http://127.0.0.1:9000/agendamento/list_aceitos', function(list_agendamentos_aceitos) {
+                setCalendar(list_agendamentos_aceitos);
             });
         });
         
