@@ -23,8 +23,34 @@
       $(document).ready(function() {
           $.get('http://127.0.0.1:9000/user/getall/aluno', function(alunos) {
               alunos.forEach(aluno => {
-                  $('#aluno').append('<option value='+aluno.nome+'>'+aluno.nome+'</option>');
+                  $('#aluno').append('<option value='+aluno.id+'>'+aluno.nome+'</option>');
               });
+          });
+
+          $('#pesquisar').click(function () {
+            var aluno = $('#aluno').val();
+
+            if (aluno) {
+              const url = 'http://localhost:9000/agendamento/list_agendamentos_aluno/' + aluno;
+              $.get(url, function(agendamentos) {
+                agendamentos.forEach(agendamento => {
+                  $('#lista-agendamentos').append(`
+                    <tr>
+                      <td>${agendamento.datahora}</td>
+                      <td>${agendamento.tema}</td>
+                      <td>${agendamento.orientador}</td>
+                      <td>${agendamento.status_orientador}</td>
+                      <td>${agendamento.professor1}</td>
+                      <td>${agendamento.status_professor1}</td>
+                      <td>${agendamento.professor2}</td>
+                      <td>${agendamento.status_professor2}</td>
+                    </tr>
+                  `);
+                });
+              });
+            } else {
+              alert('Selecione um aluno para a busca!');
+            }
           });
       });
     </script>
@@ -47,11 +73,11 @@
         <div class="row"> 
             <div class="col-md-9">
               <label for="lblAluno" class="label">Aluno:</label>
-              <select name="aluno" id="aluno" class="input-aluno">
+              <select name="aluno" id="aluno" class="input-professor">
               </select>                         
             </div>
             <div class="col-md-3">
-                <button class="btnAceitar" style="margin-top: 23px;padding: 6px;width: 100%;">Pesquisar  <i class="fas fa-search" style="margin:0 5px;line-height: 24px;transform: rotate(90deg);"></i></button>
+                <button id="pesquisar" class="btnAceitar" style="margin-top: 23px;padding: 6px;width: 100%;">Pesquisar  <i class="fas fa-search" style="margin:0 5px;line-height: 24px;transform: rotate(90deg);"></i></button>
             </div>
          
 
@@ -65,22 +91,12 @@
                   <tr>
                     <th scope="col">Data</th>
                     <th scope="col">Tema</th>
-                    <th colspan="2" style="text-align: center;border: solid 1px #ccc">Coordenador</th>
+                    <th colspan="2" style="text-align: center;border: solid 1px #ccc">Orientador</th>
                     <th colspan="2" style="text-align: center;border: solid 1px #ccc">Professor 1</th>
                     <th colspan="2" style="text-align: center;border-left: solid 1px #ccc">Professor 2</th>
                   </tr>
                 </thead>
-                <tbody style="background-color: white;">
-                  <tr>
-                    <td>06/07/2021 - 21h30</td>
-                    <td>Mongo DB</td>
-                    <td>João Augusto</td>
-                    <td>Aceito</td>
-                    <td>Andressa Souza</td>
-                    <td>Recusado</td>
-                    <td>Pedro Luis</td>
-                    <td>Recusado</td>
-                  </tr>
+                <tbody id="lista-agendamentos" style="background-color: white;">
                 </tbody>
               </table>
         </div>

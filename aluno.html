@@ -57,6 +57,25 @@
                     $('#orientador').append('<option value='+professor.id+'>'+professor.nome+'</option>');
                 });
             });
+
+            $('form').submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:9000/agendamento/create",
+                    data: formData,
+                    dataType: "json",
+                    success: function(data) {
+                        alert('Agendamento concluído com sucesso - ' + data.tema);
+                        window.location.href = 'agendamento.html';
+                    },
+                    error: function(error) {
+                        alert(error.responseText);
+                    }
+                });
+            })
         });
     </script>
     <div class="gradient">
