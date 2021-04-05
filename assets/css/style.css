@@ -220,7 +220,26 @@ body{
     text-transform: uppercase;
     transition: all ease-in 0.2;
 }
-
+.btnCalendario{
+    padding: 10px;
+    background-color: steelblue;
+    border:solid 2px steelblue;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    width: 150px;
+    margin: 10px auto;
+    border:none;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all ease-in 0.2;
+}
+.btnCalendario:hover{
+    background-color: transparent;
+    border:solid 2px steelblue;
+}
 .btnRecusar{
     padding: 10px;
     background-color: red;
