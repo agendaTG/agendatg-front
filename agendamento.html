@@ -29,9 +29,10 @@
 
           $('#pesquisar').click(function () {
             var aluno = $('#aluno').val();
+            $('#lista-agendamentos').html("");
 
             if (aluno) {
-              const url = 'http://localhost:9000/agendamento/list_agendamentos_aluno/' + aluno;
+              const url = 'http://localhost:9000/agendamento/list_agendamentos_user/' + aluno;
               $.get(url, function(agendamentos) {
                 agendamentos.forEach(agendamento => {
                   $('#lista-agendamentos').append(`
