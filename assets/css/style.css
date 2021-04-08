@@ -47,7 +47,26 @@ body{
     border-radius: 10px;
     background-color: #f7f7f7;
 }
-
+.card-login{
+    max-width: 50%;
+    margin: 0 auto;
+    padding:20px;
+    border-radius: 10px;
+    text-align: center;
+    background:white;
+}
+.input-login{
+    border:none;
+    border-bottom: solid 1px black;
+    padding:5px;
+    display:block;
+    text-align:left;
+    width: 100%;
+}
+.label-login{
+    color: black;
+    text-align: left;
+}
 #content-opcoes > .opcoes > h2{
     font-size: 2em;
     margin: 10px 0;
