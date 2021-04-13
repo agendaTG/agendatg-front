@@ -18,9 +18,26 @@
         document.addEventListener('DOMContentLoaded', function() {
             function setCalendar(eventos){
                     var calendarEl = document.getElementById('calendar');
-                    
-                    console.log(eventos)
-
+                    var data = [];
+                    for (x in eventos) {
+                        if (eventos[x].status == 'pendente'){
+                            color = 'yellow'
+                        }else if (eventos[x].status == 'aceito'){
+                            color = 'green'
+                        }else{
+                            color ='red'
+                        }
+                        data.push({
+                            title: eventos[x].title,
+                            start: eventos[x].start,
+                            end: eventos[x].end,
+                            color: color 
+                        })
+                       
+                            
+                        }
+                    if (data != '') {console.log (data); }
+                    //console.log(eventos);   
                     var calendar = new FullCalendar.Calendar(calendarEl, {
                         initialView: 'listMonth',
                         locale: 'pt-br',
@@ -30,7 +47,7 @@
                             center: '',
                             right: 'prev,next'
                         },
-                        events:eventos
+                        events:data
                     });
                     
                     calendar.render();
@@ -41,7 +58,6 @@
                 setCalendar(list_agendamentos);
             });
         });
-        
     </script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;700&display=swap" rel="stylesheet">

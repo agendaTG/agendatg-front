@@ -185,7 +185,9 @@ body{
 .progressBar li:first-child:after {
     content: none;
 }
-
+.fc-list-event-dot{
+    margin-top: 8px !important;
+}
 .progressBar li.active {
     color: white;
 }
