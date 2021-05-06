@@ -102,13 +102,30 @@
 
             $('form').submit(function(e) {
                 e.preventDefault();
-                var formData = $(this).serialize();
+
+                var formData = new FormData();
+                var file = $('#files')[0].files[0];
+                var temaTG = $('#temaTG').val();
+                var orientador = $('#orientador').val();
+                var professor01 = $('#professor01').val();
+                var professor02 = $('#professor02').val();
+                var datahora = $('#data_aluno').val();
+                var email = $('#email').val();
+                
+                formData.append('file', file);
+                formData.append('temaTG', temaTG);
+                formData.append('orientador', orientador);
+                formData.append('professor01', professor01);
+                formData.append('professor02', professor02);
+                formData.append('datahora', datahora);
+                formData.append('email', email);
 
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:9000/agendamento/create",
                     data: formData,
-                    dataType: "json",
+                    contentType: false,
+                    processData: false,
                     success: function(data) {
                         alert('Agendamento concluído com sucesso - ' + data.tema);
                         window.location.href = 'agendamento.html';
@@ -133,7 +150,7 @@
                         <div class="row">
                         <div class="col-md-12" style="text-align: left;"> 
                             <label for="lbltemaTG" class="label">Tema TG:</label>
-                            <input required type="text" name="temaTG" class="input-professor"  />                 
+                            <input required type="text" name="temaTG" id="temaTG" class="input-professor"  />                 
                         </div>
                         <div class="col-md-12" style="text-align: left;">
                             <label for="lblorientador" class="label">Orientador:</label>
@@ -156,11 +173,11 @@
                             </div>
                             <div class="col-md-6" style="text-align: left;">
                                 <label for="lblEmail" class="label">E-mail:</label>
-                                <input  required type="email" name="email" class="input-professor" />               
+                                <input  required type="email" name="email" id="email" class="input-professor" />               
                             </div>
                             <div class="col-md-12" style="text-align: left;">
                                 <label for="lblArquivo" class="label">Arquivo</label>
-                                <input style="background: white;" type="file" id="files" class="input-professor" >
+                                <input style="background: white;" type="file" id="files" name="file" class="input-professor" >
                             </div>
                         </div>                              
                         <div class="col-md-12" style="text-align: left;">
