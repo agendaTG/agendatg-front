@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href='assets/fullcalendar/main.css' rel='stylesheet' />
     <script src='assets/fullcalendar/main.js'></script>
-    <script src='assets/fullcalendar/core/locales-all.js'></script>
+    <script src='assets/fullcalendar/locales-all.js'></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -24,9 +24,9 @@
                 month = '0' + month;
             if (day.length < 2) 
                 day = '0' + day;
-            dataInicial = [year, month, day].join('-')
+            dataInicial = [year, month, day].join('-');
             $('#data_aluno').on('change', function() {
-            var data = this.value;
+                var data = this.value;
                 var d = new Date(data),
                     month = '' + (d.getMonth() + 1),
                     day = '' + d.getDate(),
@@ -35,9 +35,11 @@
                     month = '0' + month;
                 if (day.length < 2) 
                     day = '0' + day;
-            dataInicial = ([year, month, day].join('-'));            
+                
+                dataInicial = ([year, month, day].join('-'));            
+
+                calendar.gotoDate(dataInicial);
             });
-            console.log(dataInicial)
          });
         document.addEventListener('DOMContentLoaded', function() {
             function setCalendar(eventos){
@@ -63,7 +65,7 @@
                         }
                     if (data != '') {console.log (data); }
                     //console.log(eventos);   
-                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                    calendar = new FullCalendar.Calendar(calendarEl, {
                         initialView: 'listMonth',
                         initialDate:dataInicial,
                         locale: 'pt-br',
@@ -189,8 +191,14 @@
             
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" style="position: relative;">
                 <div id='calendar' style="background-color: white;padding: 5px;border-radius: 10px;"></div>
+
+                    <ul class='legenda'>
+                        <li style="color:green"> Aceito</li>
+                        <li style="color: yellow;"> Pendente</li>
+                        <li style="color: red;"> Recusado</li>
+                    </ul>
                 <div class="col-md-12" style="text-align: left;">
                     <a href="agendamento.html" class="btnStatus">Verificar Status Agendamento</a>
                 </div> 
@@ -203,7 +211,7 @@
         var elem = document.getElementById('files');
             elem.onchange = function (event) {
             var files = event.target.files;
-                if(files.type.indexOf('assets/') !== -1 && files.size < 204800){
+                if(files.type && files.type.indexOf('assets/') !== -1 && files.size < 204800){
                     alert(files[i].name);
             }
         }
