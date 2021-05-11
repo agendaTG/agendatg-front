@@ -306,3 +306,21 @@ body{
     margin-right: 20px;
     text-transform: uppercase;
 }
+
+.navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navigation-link{
+    padding: 2px 8px;
+    font-size: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin: 8px;
+    margin-top: 20px;
+    color: #000;
+    text-decoration: none;
+    line-height: 20px;
+}
