@@ -291,3 +291,18 @@ body{
     text-transform: uppercase;
     transition: all ease-in 0.2;
 }
+
+.legenda{
+    position:absolute;
+    top: 40px;
+    margin: 0px;
+    padding: 4px;
+}
+
+.legenda li{
+    list-style-position: inside;
+    display: inline;
+    font-weight: bold;
+    margin-right: 20px;
+    text-transform: uppercase;
+}
