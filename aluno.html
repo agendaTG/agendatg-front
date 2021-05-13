@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href='assets/fullcalendar/main.css' rel='stylesheet' />
     <script src='assets/fullcalendar/main.js'></script>
-    <script src='assets/fullcalendar/core/locales-all.js'></script>
+    <script src='assets/fullcalendar/locales-all.js'></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -15,14 +15,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script>
+         $(document).ready(function() {
+            var d = new Date(),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+            if (month.length < 2) 
+                month = '0' + month;
+            if (day.length < 2) 
+                day = '0' + day;
+            dataInicial = [year, month, day].join('-');
+            $('#data_aluno').on('change', function() {
+                var data = this.value;
+                var d = new Date(data),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+                if (month.length < 2) 
+                    month = '0' + month;
+                if (day.length < 2) 
+                    day = '0' + day;
+                
+                dataInicial = ([year, month, day].join('-'));            
+
+                calendar.gotoDate(dataInicial);
+            });
+         });
         document.addEventListener('DOMContentLoaded', function() {
             function setCalendar(eventos){
+                   
                     var calendarEl = document.getElementById('calendar');
-                    
-                    console.log(eventos)
-
-                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                    var data = [];
+                    for (x in eventos) {
+                        if (eventos[x].status == 'pendente'){
+                            color = 'yellow'
+                        }else if (eventos[x].status == 'aceito'){
+                            color = 'green'
+                        }else{
+                            color ='red'
+                        }
+                        data.push({
+                            title: eventos[x].title,
+                            start: eventos[x].start,
+                            end: eventos[x].end,
+                            color: color 
+                        })
+                       
+                            
+                        }
+                    if (data != '') {console.log (data); }
+                    //console.log(eventos);   
+                    calendar = new FullCalendar.Calendar(calendarEl, {
                         initialView: 'listMonth',
+                        initialDate:dataInicial,
                         locale: 'pt-br',
                         height: '450px',
                         header: {
@@ -30,7 +75,7 @@
                             center: '',
                             right: 'prev,next'
                         },
-                        events:eventos
+                        events:data
                     });
                     
                     calendar.render();
@@ -41,11 +86,10 @@
                 setCalendar(list_agendamentos);
             });
         });
-        
     </script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;700&display=swap" rel="stylesheet">
-    <title>agendaTG</title>
+    <title>Agenda TG - Aluno</title>
 </head>
 <body>
     <script>
@@ -60,13 +104,30 @@
 
             $('form').submit(function(e) {
                 e.preventDefault();
-                var formData = $(this).serialize();
+
+                var formData = new FormData();
+                var file = $('#files')[0].files[0];
+                var temaTG = $('#temaTG').val();
+                var orientador = $('#orientador').val();
+                var professor01 = $('#professor01').val();
+                var professor02 = $('#professor02').val();
+                var datahora = $('#data_aluno').val();
+                var email = $('#email').val();
+                
+                formData.append('file', file);
+                formData.append('temaTG', temaTG);
+                formData.append('orientador', orientador);
+                formData.append('professor01', professor01);
+                formData.append('professor02', professor02);
+                formData.append('datahora', datahora);
+                formData.append('email', email);
 
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:9000/agendamento/create",
                     data: formData,
-                    dataType: "json",
+                    contentType: false,
+                    processData: false,
                     success: function(data) {
                         alert('Agendamento concluído com sucesso - ' + data.tema);
                         window.location.href = 'agendamento.html';
@@ -78,7 +139,11 @@
             })
         });
     </script>
-    <div class="gradient">
+    <div class="gradient" style="padding:10px">
+        <div class="navigation">
+            <a href="index.html" class="navigation-link">&#8592;</a>  
+            <a href="agendamento.html" class="navigation-link">&#8594;</a>  
+        </div>
     <div style="text-align: center;">
         <img src="assets/img/fatec.png" alt="" class="logoFatec" style="margin: 20px auto;">
     </div>
@@ -87,11 +152,11 @@
             <div class="col-md-6">
                 <form id="content-opcoes" action="http://localhost:9000/agendamento/create" method="post">
                     <div class="professor">
-                        <h2 style="color: white;">Aluno</h2>
+                        <h2 style="color: white;">Espaço do Aluno</h2>
                         <div class="row">
                         <div class="col-md-12" style="text-align: left;"> 
                             <label for="lbltemaTG" class="label">Tema TG:</label>
-                            <input required type="text" name="temaTG" class="input-professor"  />                 
+                            <input required type="text" name="temaTG" id="temaTG" class="input-professor"  />                 
                         </div>
                         <div class="col-md-12" style="text-align: left;">
                             <label for="lblorientador" class="label">Orientador:</label>
@@ -110,14 +175,17 @@
                             </div>
                             <div class="col-md-6" style="text-align: left;">
                                 <label for="lblDatahora" class="label">Data:</label>
-                                <input  required type="datetime-local" name="datahora" class="input-professor" />
+                                <input  required type="datetime-local" id="data_aluno" name="datahora" class="input-professor" />
                             </div>
                             <div class="col-md-6" style="text-align: left;">
                                 <label for="lblEmail" class="label">E-mail:</label>
-                                <input  required type="email" name="email" class="input-professor" />               
+                                <input  required type="email" name="email" id="email" class="input-professor" />               
                             </div>
-                        </div>
-                                               
+                            <div class="col-md-12" style="text-align: left;">
+                                <label for="lblArquivo" class="label">Arquivo</label>
+                                <input style="background: white;" type="file" id="files" name="file" class="input-professor" >
+                            </div>
+                        </div>                              
                         <div class="col-md-12" style="text-align: left;">
                             <button class="btnAgendar" type="submit">Agendar</button>
                         </div>      
@@ -127,8 +195,14 @@
             
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" style="position: relative;">
                 <div id='calendar' style="background-color: white;padding: 5px;border-radius: 10px;"></div>
+
+                    <ul class='legenda'>
+                        <li style="color:green"> Aceito</li>
+                        <li style="color: yellow;"> Pendente</li>
+                        <li style="color: red;"> Recusado</li>
+                    </ul>
                 <div class="col-md-12" style="text-align: left;">
                     <a href="agendamento.html" class="btnStatus">Verificar Status Agendamento</a>
                 </div> 
@@ -137,6 +211,14 @@
     </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
+    <script>
+        var elem = document.getElementById('files');
+            elem.onchange = function (event) {
+            var files = event.target.files;
+                if(files.type && files.type.indexOf('assets/') !== -1 && files.size < 204800){
+                    alert(files[i].name);
+            }
+        }
+    </script>
 </body>
 </html>
