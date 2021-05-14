@@ -307,6 +307,27 @@ body{
     text-transform: uppercase;
 }
 
+.legenda span{
+    width: 10px;
+    display: inline-block;
+    border-radius: 5px;
+    height: 10px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+
+.bg_green{
+    background-color: green;
+}
+
+.bg_red{
+    background-color: red;
+}
+
+.bg_yellow{
+    background-color: yellow;
+}
+
 .navigation{
     display: flex;
     align-items: center;

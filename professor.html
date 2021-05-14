@@ -90,6 +90,8 @@
               const url = 'http://localhost:9000/agendamento/list_agendamentos_user/' + professor;
               $.get(url, function(agendamentos) {
                 agendamentos.forEach(agendamento => {
+                  const aceito = 'http://localhost:9000/agendamento/status_agendamento/' + agendamento.id + '/' + professor + '/aceito';
+                  const recusado = 'http://localhost:9000/agendamento/status_agendamento/' + agendamento.id + '/' + professor + '/recusado';
                   $('#lista-agendamentos').append(`
                     <tr>
                       <td>${agendamento.aluno}</td>
@@ -102,8 +104,8 @@
                       <td>${agendamento.professor2}</td>
                       <td>${agendamento.status_professor2}</td>
                       <td>
-                        <button class="btnAceitar" style="margin:5px 0;width:100%;line-height:16px"><i class="fas fa-check"></i></button>
-                        <button class="btnRecusar" style="margin:5px 0;width:100%;line-height:16px"><i class="fas fa-times"></i></button>
+                          <button class="btnAceitar" style="margin:5px 0;width:100%;line-height:16px" onclick="aceitar_recusar('${aceito}', 'aceito')"><i class="fas fa-check"></i></button>
+                          <button class="btnRecusar" style="margin:5px 0;width:100%;line-height:16px" onclick="aceitar_recusar('${recusado}', 'recusado')"><i class="fas fa-times"></i></button>
                      </td> 
                     </tr>
                   `);
@@ -114,6 +116,20 @@
             }
           });
       });
+
+      function aceitar_recusar(url, status) {
+          $.ajax({
+              type: "POST",
+              url: url,
+              success: function(data) {
+                  alert(`Agendamento ${status} com sucesso!`);
+                  window.location.reload(false);
+              },
+              error: function(error) {
+                  alert(error.responseText);
+              }
+          });
+      }
     </script>
     <div class="gradient">
       <div id="sessao" class="session">
