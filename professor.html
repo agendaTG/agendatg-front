@@ -69,7 +69,7 @@
             });
         });
       $(document).ready(function() {
-        
+
           if (token && tipo) {
               $('#sessao').append(`
                   <p>${tipo}</p>
@@ -118,15 +118,21 @@
       });
 
       function aceitar_recusar(url, status) {
+          let authToken = `Bearer ${token}`;
           $.ajax({
               type: "POST",
               url: url,
+              headers: {
+                  'Authorization': authToken
+              },
               success: function(data) {
                   alert(`Agendamento ${status} com sucesso!`);
                   window.location.reload(false);
+                  sendingRequest = false;
               },
               error: function(error) {
                   alert(error.responseText);
+                  sendingRequest = false;
               }
           });
       }

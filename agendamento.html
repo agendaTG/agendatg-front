@@ -36,6 +36,10 @@
                   <p>${tipo}</p>
                   <button onclick="logout()">Sair</button>
               `);
+          } else {
+              $('#sessao').append(`
+                  <button onclick="window.location.href = 'login.html'">Login</button>
+              `);
           }
 
           if (tipo === 'aluno') {

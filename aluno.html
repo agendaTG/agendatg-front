@@ -146,6 +146,8 @@
                 formData.append('professor02', professor02);
                 formData.append('datahora', datahora);
                 formData.append('email', email);
+ 
+                let authToken = `Bearer ${token}`;
 
                 $.ajax({
                     type: "POST",
@@ -153,6 +155,9 @@
                     data: formData,
                     contentType: false,
                     processData: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', authToken);
+                    },
                     success: function(data) {
                         alert('Agendamento concluído com sucesso - ' + data.tema);
                         window.location.href = 'agendamento.html';
