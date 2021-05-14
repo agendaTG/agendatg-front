@@ -25,6 +25,23 @@
 </head>
 <body>
     <script>
+      const token = localStorage.getItem('token');
+      const tipo = localStorage.getItem('tipo');
+      if (token === null) {
+        window.location.href = 'login.html';
+      } else {
+        if (tipo !== 'professor') {
+          alert('Faça o login como professor para ter acesso a essa área!');
+          window.location.href = "index.html";
+        }
+      }
+
+      function logout() {
+          localStorage.removeItem('token');
+          localStorage.removeItem('tipo');
+          window.location.reload(false);
+      }
+
        document.addEventListener('DOMContentLoaded', function() {
             function setCalendar(eventos){
                     var calendarEl = document.getElementById('calendar');
@@ -52,6 +69,14 @@
             });
         });
       $(document).ready(function() {
+        
+          if (token && tipo) {
+              $('#sessao').append(`
+                  <p>${tipo}</p>
+                  <button onclick="logout()">Sair</button>
+              `);
+          }
+
           $.get('http://127.0.0.1:9000/user/getall/professor', function(professores) {
             professores.forEach(professor => {
                   $('#professor').append('<option value='+professor.id+'>'+professor.nome+'</option>');
@@ -91,6 +116,8 @@
       });
     </script>
     <div class="gradient">
+      <div id="sessao" class="session">
+      </div>
       <div class="navigation">
         <a href="index.html" class="navigation-link">&#8592;</a>
       </div>

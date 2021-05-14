@@ -15,7 +15,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script>
+        const token = localStorage.getItem('token');
+        const tipo = localStorage.getItem('tipo');
+        if (token === null) {
+            window.location.href = 'login.html';
+        } else {
+            if (tipo !== 'aluno') {
+            alert('Faça o login como aluno para ter acesso a essa área!');
+            window.location.href = "index.html";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('tipo');
+            window.location.reload(false);
+        }
+
          $(document).ready(function() {
+        
+            if (token && tipo) {
+                $('#sessao').append(`
+                    <p>${tipo}</p>
+                    <button onclick="logout()">Sair</button>
+                `);
+            }
+
             var d = new Date(),
                 month = '' + (d.getMonth() + 1),
                 day = '' + d.getDate(),
@@ -140,6 +165,8 @@
         });
     </script>
     <div class="gradient" style="padding:10px">
+        <div id="sessao" class="session">
+        </div>
         <div class="navigation">
             <a href="index.html" class="navigation-link">&#8592;</a>  
             <a href="agendamento.html" class="navigation-link">&#8594;</a>  

@@ -20,7 +20,34 @@
 </head>
 <body>
     <script>
+      const token = localStorage.getItem('token');
+      const tipo = localStorage.getItem('tipo');
+
+      function logout() {
+          localStorage.removeItem('token');
+          localStorage.removeItem('tipo');
+          window.location.reload(false);
+      }
+
       $(document).ready(function() {
+        
+          if (token && tipo) {
+              $('#sessao').append(`
+                  <p>${tipo}</p>
+                  <button onclick="logout()">Sair</button>
+              `);
+          }
+
+          if (tipo === 'aluno') {
+            $('#navigation').append(`
+              <a href="aluno.html" class="navigation-link">&#8592;</a>
+            `);
+          } else {
+            $('#navigation').append(`
+              <a href="index.html" class="navigation-link">&#8592;</a>
+            `);
+          }
+
           $.get('http://127.0.0.1:9000/user/getall/aluno', function(alunos) {
               alunos.forEach(aluno => {
                   $('#aluno').append('<option value='+aluno.id+'>'+aluno.nome+'</option>');
@@ -61,8 +88,9 @@
       });
     </script>
     <div class="gradient">
-      <div class="navigation">
-        <a href="aluno.html" class="navigation-link">&#8592;</a>
+      <div id="sessao" class="session">
+      </div>
+      <div id="navigation" class="navigation">
       </div>
     <div style="text-align: center;">
         <img src="assets/img/fatec.png" alt="" class="logoFatec" style="margin: 10px auto;">

@@ -319,8 +319,30 @@ body{
     background-color: #fff;
     border-radius: 8px;
     margin: 8px;
-    margin-top: 20px;
     color: #000;
     text-decoration: none;
     line-height: 20px;
+    padding: 0 4px 4px;
+}
+
+.session {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+}
+
+.session p {
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 8px ;
+}
+
+.session button {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 8px;
+    font-size: 16px;
+    color: white;
 }
