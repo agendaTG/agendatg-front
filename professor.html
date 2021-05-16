@@ -45,7 +45,25 @@
        document.addEventListener('DOMContentLoaded', function() {
             function setCalendar(eventos){
                     var calendarEl = document.getElementById('calendar');
-                    
+                    var data = [];
+                    for (x in eventos) {
+                        if (eventos[x].status == 'pendente'){
+                            color = 'yellow'
+                        }else if (eventos[x].status == 'aceito'){
+                            color = 'green'
+                        }else{
+                            color ='red'
+                        }
+                        data.push({
+                            title: eventos[x].title,
+                            start: eventos[x].start,
+                            end: eventos[x].end,
+                            color: color 
+                        })
+                       
+                            
+                      }
+
                     console.log(eventos)
 
                     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -57,7 +75,7 @@
                             center: '',
                             right: 'prev,next'
                         },
-                        events:eventos
+                        events:data
                     });
                     
                     calendar.render();
@@ -184,8 +202,14 @@
               <div style="text-align:right">
                 <button class="btnCalendario" id="BTNcalendario">Calendário</button>
               </div>
-              <div class="calendario">
-                <div id='calendar' style="background-color: white;padding: 5px;border-radius: 10px;"></div>
+              <div class="calendario" style="position: relative;">
+                <div id='calendar' style="background-color: white;padding: 5px;border-radius: 10px;">
+                    <ul class='legenda'>
+                      <li> <span class="bg_green">.</span> Aceito</li>
+                      <li> <span class="bg_yellow">.</span> Pendente</li>
+                      <li> <span class="bg_red">.</span> Recusado</li>
+                    </ul>
+                </div>
               </div>
         </div>
      </div>
