@@ -142,11 +142,14 @@
 
       function aceitar_recusar(url, status) {
           let authToken = `Bearer ${token}`;
+          
           $.ajax({
               type: "POST",
               url: url,
-              headers: {
-                  'Authorization': authToken
+              contentType: false,
+              processData: false,
+              beforeSend: function (xhr) {
+                  xhr.setRequestHeader('Authorization', authToken);
               },
               success: function(data) {
                   alert(`Agendamento ${status} com sucesso!`);
